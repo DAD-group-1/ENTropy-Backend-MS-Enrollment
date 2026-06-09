@@ -7,6 +7,7 @@ import {
   GradeListResponseDto,
   GradeResponseDto,
   PaginationQueryDto,
+  SearchPaginationQueryDto,
   UpdateGradeRequestDto,
 } from '@dad-group-1/backend-common';
 import { RpcException } from '@nestjs/microservices';
@@ -64,6 +65,21 @@ export class GradeService {
     }
 
     return grade;
+  }
+
+  async findByStudentId(query: SearchPaginationQueryDto) {
+    const { page, limit } = query.query;
+    const skip = (page - 1) * limit;
+
+    const [data, total] = await this.gradeRepository.findAndCount({
+      where: { enrollment: { student_id: query.id } },
+      relations: { enrollment: { course: true } },
+      skip,
+      take: limit,
+      order: { id: 'DESC' },
+    });
+
+    return new GradeListResponseDto(data, total, page, limit);
   }
 
   async update(

@@ -3,6 +3,7 @@ import { MessagePattern, Payload } from '@nestjs/microservices';
 import {
   CreateGradeRequestDto,
   PaginationQueryDto,
+  SearchPaginationQueryDto,
   UpdateGradeDto,
 } from '@dad-group-1/backend-common';
 import { GradeService } from './grade.service';
@@ -25,6 +26,11 @@ export class GradeController {
   @MessagePattern({ cmd: 'find_one_grade' })
   findOne(@Payload() id: number) {
     return this.gradeService.findOne(id);
+  }
+
+  @MessagePattern({ cmd: 'find_grades_by_student' })
+  findByStudentId(@Payload() query: SearchPaginationQueryDto) {
+    return this.gradeService.findByStudentId(query);
   }
 
   @MessagePattern({ cmd: 'update_grade' })
