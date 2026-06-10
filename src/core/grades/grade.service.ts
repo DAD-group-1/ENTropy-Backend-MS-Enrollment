@@ -42,7 +42,12 @@ export class GradeService {
     const skip = (page - 1) * limit;
 
     const [data, total] = await this.gradeRepository.findAndCount({
-      relations: { enrollment: true },
+      relations: {
+        enrollment: {
+          student: { user: { campus: true, role: true } },
+          course: true,
+        },
+      },
       skip,
       take: limit,
       order: { id: 'DESC' },
@@ -54,7 +59,12 @@ export class GradeService {
   async findOne(id: number): Promise<GradeResponseDto | null> {
     const grade = await this.gradeRepository.findOne({
       where: { id: id },
-      relations: { enrollment: true },
+      relations: {
+        enrollment: {
+          student: { user: { campus: true, role: true } },
+          course: true,
+        },
+      },
     });
 
     if (!grade) {
@@ -73,7 +83,12 @@ export class GradeService {
 
     const [data, total] = await this.gradeRepository.findAndCount({
       where: { enrollment: { student_id: query.id } },
-      relations: { enrollment: { course: true } },
+      relations: {
+        enrollment: {
+          student: { user: { campus: true, role: true } },
+          course: true,
+        },
+      },
       skip,
       take: limit,
       order: { id: 'DESC' },
