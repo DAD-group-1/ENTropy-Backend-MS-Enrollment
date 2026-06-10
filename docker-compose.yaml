@@ -1,0 +1,8 @@
+services:
+  entropy-backend-ms-enrollment:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: entropy_backend_ms_enrollment
+    ports:
+      - '3005:3005'
