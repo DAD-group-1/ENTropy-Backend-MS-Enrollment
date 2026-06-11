@@ -27,7 +27,7 @@
     "update:common": "npm install @dad-group-1/backend-common@latest"
   },
   "dependencies": {
-    "@dad-group-1/backend-common": "^0.1.84",
+    "@dad-group-1/backend-common": "^0.1.97",
     "@nestjs/common": "^11.0.1",
     "@nestjs/config": "^4.0.4",
     "@nestjs/core": "^11.0.1",
@@ -36,6 +36,8 @@
     "@nestjs/platform-express": "^11.0.1",
     "@nestjs/swagger": "^11.4.3",
     "@nestjs/typeorm": "^11.0.1",
+    "amqp-connection-manager": "^5.0.0",
+    "amqplib": "^2.0.1",
     "ms": "^2.1.3",
     "pg": "^8.21.0",
     "reflect-metadata": "^0.2.2",
